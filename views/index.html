@@ -4,9 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JUBAYER REST API - Dark Nitro</title>
+  
+  <!-- App Favicon & Touch Icons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/favicon.ico">
+
+  <!-- Icons & Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   
+  <!-- CSS Styles -->
   <style>
     :root {
       --nitro-red: #ff1a40;
@@ -35,7 +42,64 @@
       overflow-x: hidden;
     }
 
-    /* Top Red Ambient Glow */
+    /* Page Initial Loader Overlay */
+    .page-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-black);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .page-loader.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-content {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .nitro-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid var(--border-color);
+      border-top-color: var(--nitro-red);
+      border-right-color: var(--accent-pink);
+      border-radius: 50%;
+      animation: nitroSpin 0.8s linear infinite;
+      box-shadow: 0 0 20px var(--nitro-red-glow);
+    }
+
+    .loader-content h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 30%, var(--nitro-red) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+    }
+
+    .loader-content p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    @keyframes nitroSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Ambient Glow */
     .nitro-glow {
       position: absolute;
       top: -100px;
@@ -63,7 +127,20 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px 0;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      object-fit: cover;
     }
 
     .logo-txt {
@@ -81,7 +158,6 @@
       font-weight: 800;
       padding: 2px 8px;
       border-radius: 12px;
-      margin-left: 8px;
       box-shadow: 0 0 10px var(--nitro-red-glow);
     }
 
@@ -89,11 +165,14 @@
       font-size: 1.2rem;
       color: var(--text-muted);
       cursor: pointer;
+      transition: color 0.2s;
     }
+
+    .search-toggle:hover { color: white; }
 
     .search-container {
       display: none;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .search-container input {
@@ -106,7 +185,87 @@
       outline: none;
     }
 
-    /* Dashboard Stats Cards */
+    /* Hero Banner GIF */
+    .hero-banner {
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Music Player Bar Widget */
+    .music-player-bar {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .music-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .disc-icon {
+      font-size: 1.4rem;
+      color: var(--text-muted);
+      transition: transform 0.3s ease;
+    }
+
+    .disc-icon.spinning {
+      color: var(--nitro-red);
+      animation: spinDisc 3s linear infinite;
+    }
+
+    @keyframes spinDisc {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .track-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .track-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .track-status {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .music-control-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: var(--nitro-red);
+      color: white;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px var(--nitro-red-glow);
+      transition: transform 0.2s ease;
+    }
+
+    .music-control-btn:active { transform: scale(0.92); }
+
+    /* Dashboard Stats Grid */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -125,9 +284,7 @@
       flex-direction: column;
     }
 
-    .stat-card:hover {
-      background: var(--bg-card-hover);
-    }
+    .stat-card:hover { background: var(--bg-card-hover); }
 
     .stat-card.active {
       border-color: var(--nitro-red);
@@ -200,9 +357,7 @@
       transition: transform 0.3s ease;
     }
 
-    .cat-item.open .cat-arrow {
-      transform: rotate(180deg);
-    }
+    .cat-item.open .cat-arrow { transform: rotate(180deg); }
 
     .cat-body {
       display: none;
@@ -211,11 +366,9 @@
       gap: 8px;
     }
 
-    .cat-item.open .cat-body {
-      display: flex;
-    }
+    .cat-item.open .cat-body { display: flex; }
 
-    /* API Endpoints inside category */
+    /* API Endpoints */
     .api-row {
       background: rgba(0, 0, 0, 0.4);
       border: 1px solid var(--border-color);
@@ -238,9 +391,7 @@
       padding: 4px;
     }
 
-    .three-dot-btn:hover {
-      color: white;
-    }
+    .three-dot-btn:hover { color: white; }
 
     .api-name {
       font-weight: 600;
@@ -256,15 +407,6 @@
 
     .method-tag.get { background: rgba(16, 185, 129, 0.15); color: #10b981; }
     .method-tag.post { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
-
-    /* Loader */
-    .loader-box { text-align: center; padding: 40px; color: var(--text-muted); }
-    .spinner {
-      width: 30px; height: 30px; border: 2px solid var(--border-color);
-      border-top-color: var(--nitro-red); border-radius: 50%; margin: 0 auto 10px;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* Footer */
     .footer { text-align: center; padding: 30px 0; color: var(--text-muted); font-size: 0.85rem; }
@@ -307,12 +449,23 @@
   </style>
 </head>
 <body>
-  <!-- Animated Nitro Red Ambient Glow -->
+
+  <!-- Full Screen Initial Page Loader -->
+  <div id="page-loader" class="page-loader">
+    <div class="loader-content">
+      <div class="nitro-spinner"></div>
+      <h2>JUBAYER API</h2>
+      <p>Initializing Nitro Engine...</p>
+    </div>
+  </div>
+
+  <!-- Ambient Glow Effect -->
   <div class="nitro-glow"></div>
 
   <div class="container">
     <nav class="navbar">
       <div class="brand">
+        <img src="/favicon.ico" alt="Logo" class="brand-icon" onerror="this.style.display='none'">
         <span class="logo-txt">JUBAYER API</span>
         <span class="badge-ui">PRO UI</span>
       </div>
@@ -326,7 +479,27 @@
       <input type="text" id="search-input" placeholder="Search endpoints...">
     </div>
 
-    <!-- Analytics Dashboard Stats Header -->
+    <!-- Hero Banner Image / GIF -->
+    <img src="/banner.gif" alt="Hero Banner" class="hero-banner" onerror="this.style.display='none'">
+
+    <!-- Interactive Music Player Bar Widget -->
+    <div class="music-player-bar">
+      <div class="music-info">
+        <i class="fa-solid fa-compact-disc disc-icon" id="disc-icon"></i>
+        <div class="track-details">
+          <span class="track-title">Background Music</span>
+          <span class="track-status" id="music-status">Tap to Play</span>
+        </div>
+      </div>
+      <button class="music-control-btn" id="music-toggle-btn">
+        <i class="fa-solid fa-play" id="music-icon"></i>
+      </button>
+      <audio id="bg-music" loop>
+        <source src="/music.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <!-- Analytics Dashboard Stats -->
     <div class="stats-grid">
       <div class="stat-card active" data-filter="all">
         <span class="stat-num" id="stat-total">0</span>
@@ -346,14 +519,9 @@
       </div>
     </div>
 
-    <!-- Accordion Accorded API Categories -->
+    <!-- Accordion API Categories -->
     <main>
-      <div id="category-accordion" class="accordion-container">
-        <div class="loader-box">
-          <div class="spinner"></div>
-          <p>Loading Nitro Engine...</p>
-        </div>
-      </div>
+      <div id="category-accordion" class="accordion-container"></div>
     </main>
 
     <footer class="footer" id="footer-text">
@@ -384,6 +552,9 @@
     </div>
   </div>
 
-  <script src="/js/app.js"></script>
+  <!-- Scripts -->
+  <script src="/theme.js"></script>
+  <script src="/search.js"></script>
+  <script src="/app.js"></script>
 </body>
 </html>
