@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(corsMiddleware);
 app.use(rateLimiter);
 
-// 1. Static Folder Middleware (সবচেয়ে ওপরে থাকতে হবে)
+// 1. Static Folder Middleware
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/views", express.static(path.join(__dirname, "views")));
 
@@ -27,7 +27,20 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "index.html"));
 });
 
-// Global Error Handler
+// 4. 404 Handler (API এবং অকার্যকর পেজ রুটের জন্য)
+app.use((req, res, next) => {
+  // API Request হলে JSON format-এ Error দেওয়া
+  if (req.originalUrl.startsWith(settings.apiPrefix || "/api")) {
+    return res.status(404).json({
+      status: false,
+      error: "API Endpoint Not Found"
+    });
+  }
+  // নরমাল পেজ হলে 404.html ফাইল পাঠানো
+  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+});
+
+// 5. Global Error Handler (একদম শেষে থাকবে)
 app.use(errorHandler);
 
 // Port setup for Render
