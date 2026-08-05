@@ -16,8 +16,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(corsMiddleware);
 app.use(rateLimiter);
 
-// Static Asset Management
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/css", express.static(path.join(__dirname, "public/css")));
+app.use("/js", express.static(path.join(__dirname, "public/js")));
 app.use("/views", express.static(path.join(__dirname, "views")));
 
 // Dynamic Route Loader
@@ -31,7 +32,10 @@ app.get("/", (req, res) => {
 // Global Error Handler
 app.use(errorHandler);
 
+// Render/Heroku Dynamic Port Handling
+const PORT = process.env.PORT || settings.port || 3000;
+
 // Start Server
-app.listen(settings.port, () => {
-  logger.info(`port :${settings.port}`);
+app.listen(PORT, () => {
+  logger.info(`Server active on port :${PORT}`);
 });
