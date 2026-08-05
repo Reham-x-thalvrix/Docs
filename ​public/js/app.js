@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupEvents();
 });
 
+// Dashboard Stats Updater
 function updateStats(apis) {
   const total = apis.length;
   const getCount = apis.filter(a => (a.method || "GET").toUpperCase() === "GET").length;
@@ -36,6 +37,7 @@ function updateStats(apis) {
   document.getElementById("footer-text").innerText = `${total} APIs in ${categories} categories`;
 }
 
+// Category Accordion Renderer
 function renderAccordion(apis) {
   const container = document.getElementById("category-accordion");
   if (!container) return;
@@ -80,8 +82,8 @@ window.toggleCat = (el) => {
   parent.classList.toggle("open");
 };
 
+// Search & Filter Events
 function setupEvents() {
-  // Stat Tab Click Effects
   document.querySelectorAll(".stat-card").forEach(card => {
     card.addEventListener("click", () => {
       document.querySelectorAll(".stat-card").forEach(c => c.classList.remove("active"));
@@ -98,7 +100,6 @@ function setupEvents() {
     });
   });
 
-  // Search Toggle
   document.getElementById("search-btn").addEventListener("click", () => {
     const box = document.getElementById("search-container");
     box.style.display = box.style.display === "block" ? "none" : "block";
@@ -110,12 +111,12 @@ function setupEvents() {
     renderAccordion(filtered);
   });
 
-  // Modal Actions
   document.getElementById("modal-close-btn").addEventListener("click", closeModal);
   document.getElementById("btn-cancel").addEventListener("click", closeModal);
   document.getElementById("btn-submit").addEventListener("click", executeApi);
 }
 
+// Three Dot Modal Handler
 window.openModal = (path) => {
   currentApi = apiData.find(a => a.path === path);
   if (!currentApi) return;
@@ -144,6 +145,7 @@ function closeModal() {
   document.getElementById("api-modal").style.display = "none";
 }
 
+// API Dynamic Request Tester
 async function executeApi() {
   if (!currentApi) return;
 
