@@ -4,7 +4,6 @@ const settings = require("./settings.json");
 const { corsMiddleware } = require("./middleware/cors");
 const { rateLimiter } = require("./middleware/ratelimit");
 const { errorHandler } = require("./middleware/error");
-const { authMiddleware } = require("./middleware/auth");
 const { loadScripts } = require("./core/loader");
 const { logger } = require("./core/logger");
 
@@ -16,15 +15,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(corsMiddleware);
 app.use(rateLimiter);
 
+// 1. Static Folder Middleware (সবচেয়ে ওপরে থাকতে হবে)
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/css", express.static(path.join(__dirname, "public/css")));
-app.use("/js", express.static(path.join(__dirname, "public/js")));
 app.use("/views", express.static(path.join(__dirname, "views")));
 
-// Dynamic Route Loader
+// 2. Dynamic API Route Loader
 loadScripts(app, settings.apiPrefix);
 
-// HTML Page Routes
+// 3. Main HTML Route
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "index.html"));
 });
@@ -32,10 +30,9 @@ app.get("/", (req, res) => {
 // Global Error Handler
 app.use(errorHandler);
 
-// Render/Heroku Dynamic Port Handling
+// Port setup for Render
 const PORT = process.env.PORT || settings.port || 3000;
 
-// Start Server
 app.listen(PORT, () => {
-  logger.info(`Server active on port :${PORT}`);
+  logger.info(`Server running on port: ${PORT}`);
 });
