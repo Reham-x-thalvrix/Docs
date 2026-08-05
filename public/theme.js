@@ -4,7 +4,7 @@ window.toggleCat = (el) => {
   parent.classList.toggle("open");
 };
 
-// Continuous Background Music Controller
+// Persistent Background Music Controller
 document.addEventListener("DOMContentLoaded", () => {
   const bgMusic = document.getElementById("bg-music");
   const toggleBtn = document.getElementById("music-toggle-btn");
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Auto-play trigger on first interaction
+    // Auto-play trigger on first user interaction
     const handleFirstInteraction = () => {
       if (bgMusic.paused) {
         playMusic();
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Smooth Fade Out for Page Loader
+// Smooth Fade Out for Initial Page Loader
 window.addEventListener("load", () => {
   const loader = document.getElementById("page-loader");
   if (loader) {
