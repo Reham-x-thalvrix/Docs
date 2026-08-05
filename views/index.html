@@ -5,11 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JUBAYER REST API - Ultra Animated UI</title>
   
-  <!-- App Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/favicon.ico">
 
-  <!-- Icons & Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   
@@ -26,11 +24,27 @@
       --accent-pink: #d946ef;
     }
 
+    /* Universal Anti-Highlight & Anti-Select Properties */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       font-family: 'Plus Jakarta Sans', sans-serif;
+      
+      /* ১. মোবাইলে বাটনে ক্লিকে নীল আলোর হাইলাইট বন্ধ */
+      -webkit-tap-highlight-color: transparent;
+      
+      /* ২. বাটন বা লেখায় চাপ দিলে অনাকাঙ্ক্ষিত কপি/সিলেক্ট বন্ধ */
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+
+    /* শুধু ইনপুট ফিল্ড ও কোড দেখার জায়গায় কপি/টাইপ এলাউ রাখা */
+    input, textarea, pre, code {
+      user-select: text !important;
+      -webkit-user-select: text !important;
     }
 
     body {
@@ -41,7 +55,7 @@
       overflow-x: hidden;
     }
 
-    /* Full Screen Loader */
+    /* Full Screen Page Loader */
     .page-loader {
       position: fixed;
       top: 0;
@@ -353,7 +367,6 @@
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      user-select: none;
     }
 
     .cat-title {
@@ -464,7 +477,6 @@
 </head>
 <body>
 
-  <!-- Full Screen Initial Loader -->
   <div id="page-loader" class="page-loader">
     <div class="loader-content">
       <div class="nitro-spinner"></div>
@@ -473,7 +485,6 @@
     </div>
   </div>
 
-  <!-- Ambient Glow -->
   <div class="nitro-glow"></div>
 
   <div class="container">
@@ -488,15 +499,12 @@
       </div>
     </nav>
 
-    <!-- Search Bar -->
     <div class="search-container" id="search-container">
       <input type="text" id="search-input" placeholder="Search endpoints...">
     </div>
 
-    <!-- Hero Banner GIF -->
     <img src="/banner.gif" alt="Hero Banner" class="hero-banner" onerror="this.style.display='none'">
 
-    <!-- Music Player Bar Widget -->
     <div class="music-player-bar">
       <div class="music-info">
         <i class="fa-solid fa-compact-disc disc-icon" id="disc-icon"></i>
@@ -513,7 +521,6 @@
       </audio>
     </div>
 
-    <!-- Analytics Stats Grid -->
     <div class="stats-grid">
       <div class="stat-card active" data-filter="all">
         <span class="stat-num" id="stat-total">0</span>
@@ -533,7 +540,6 @@
       </div>
     </div>
 
-    <!-- Categories List -->
     <main>
       <div id="category-accordion" class="accordion-container"></div>
     </main>
@@ -543,7 +549,6 @@
     </footer>
   </div>
 
-  <!-- Interactive Modal -->
   <div class="modal-overlay" id="api-modal">
     <div class="modal-content">
       <div class="modal-header" style="display:flex; justify-content:space-between; margin-bottom:16px;">
