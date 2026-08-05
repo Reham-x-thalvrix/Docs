@@ -1,10 +1,10 @@
-// Accordion Toggle Function
+// Accordion Toggle
 window.toggleCat = (el) => {
   const parent = el.parentElement;
   parent.classList.toggle("open");
 };
 
-// Music Controller (Play/Pause/Autoplay & Status)
+// Continuous Background Music Controller
 document.addEventListener("DOMContentLoaded", () => {
   const bgMusic = document.getElementById("bg-music");
   const toggleBtn = document.getElementById("music-toggle-btn");
@@ -21,9 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         discIcon.classList.add("spinning");
         musicStatus.innerText = "Playing";
         musicStatus.style.color = "var(--nitro-red)";
-      }).catch(err => {
-        console.log("Autoplay restriction:", err);
-      });
+      }).catch(() => {});
     }
 
     function pauseMusic() {
@@ -42,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    // Auto-play trigger on first interaction
     const handleFirstInteraction = () => {
       if (bgMusic.paused) {
         playMusic();
@@ -49,10 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
       document.removeEventListener("click", handleFirstInteraction);
     };
     document.addEventListener("click", handleFirstInteraction, { once: true });
+    
+    playMusic();
   }
 });
 
-// Hide Initial Page Loader Screen after full load
+// Smooth Fade Out for Page Loader
 window.addEventListener("load", () => {
   const loader = document.getElementById("page-loader");
   if (loader) {
