@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Dashboard</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/cards.css">
+  <link rel="stylesheet" href="/css/footer.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <div class="brand"> JUBAYER REST API </div>
+    </nav>
+
+    <main>
+      <div style="margin-bottom: 1.5rem;">
+        <input type="text" id="search-input" placeholder="Search APIs..." style="width:100%; padding: 10px; background: var(--bg-card); border: 1px solid var(--border); color: white; border-radius: 6px;">
+      </div>
+
+      <div id="cards-container" class="card-grid">
+        <p>Loading API endpoints...</p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; Rest API Dashboard - All Rights Reserved</p>
+    </footer>
+  </div>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
