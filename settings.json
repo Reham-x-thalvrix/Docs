@@ -1,17 +1,11 @@
 {
-    "port": 3000,
-
-    "name": "REST API",
-
-    "description": "Professional REST API Framework",
-
-    "author": "Jubayer",
-
-    "version": "1.0.0",
-
-    "dashboard": true,
-
-    "apiPrefix": "",
-
-    "cors": true
+  "name": "Rest API Suite",
+  "port": 3000,
+  "apiPrefix": "/api",
+  "apiKey": "secret123",
+  "enableAuth": false,
+  "rateLimit": {
+    "windowMs": 60000,
+    "max": 100
+  }
 }
