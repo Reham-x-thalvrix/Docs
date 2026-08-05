@@ -1,24 +1,17 @@
 {
-  "name": "rest-api-framework",
+  "name": "rest-api-engine",
   "version": "1.0.0",
-  "description": "Professional Modular REST API Framework",
+  "description": "Modular & Scalable REST API Framework",
   "main": "server.js",
-  "author": "Jubayer",
-  "license": "MIT",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "node --watch server.js"
   },
   "dependencies": {
-    "axios": "^1.11.0",
+    "axios": "^1.7.2",
     "cors": "^2.8.5",
-    "express": "^4.21.2",
-    "form-data": "^4.0.4",
-    "fs-extra": "^11.3.1",
-    "mime-types": "^3.0.1",
-    "morgan": "^1.10.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.10"
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.0",
+    "form-data": "^4.0.0"
   }
 }
