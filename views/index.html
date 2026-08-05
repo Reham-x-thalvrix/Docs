@@ -1,55 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JUBAYER REST API</title>
-
-  <!-- External CSS -->
+  <title>JUBAYER REST API - Dark Nitro</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/navbar.css">
-  <link rel="stylesheet" href="/css/cards.css">
-  <link rel="stylesheet" href="/css/footer.css">
-
-  <style>
-    :root {
-      --bg-primary: #0a0f1d;
-      --bg-card: #131b2e;
-      --accent: #38bdf8;
-      --text-primary: #f1f5f9;
-      --text-muted: #64748b;
-      --border: #1e293b;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-    body { background-color: var(--bg-primary) !important; color: var(--text-primary); min-height: 100vh; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
-    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
-    .brand { font-size: 1.5rem; font-weight: bold; color: var(--accent); }
-    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; }
-    .method-badge { background: #0284c7; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; }
-    .footer { margin-top: 4rem; padding: 2rem 0; text-align: center; border-top: 1px solid var(--border); color: var(--text-muted); }
-  </style>
 </head>
 <body>
+  <!-- Animated Nitro Red Ambient Glow -->
+  <div class="nitro-glow"></div>
+
   <div class="container">
     <nav class="navbar">
-      <div class="brand">JUBAYER REST API</div>
+      <div class="brand">
+        <span class="logo-txt">JUBAYER API</span>
+        <span class="badge-ui">PRO UI</span>
+      </div>
+      <div class="nav-right">
+        <i class="fa-solid fa-magnifying-glass search-toggle" id="search-btn"></i>
+      </div>
     </nav>
 
-    <main>
-      <div style="margin-bottom: 1.5rem;">
-        <input type="text" id="search-input" placeholder="Search APIs..." style="width:100%; padding: 12px; background: var(--bg-card); border: 1px solid var(--border); color: white; border-radius: 6px; outline: none;">
-      </div>
+    <!-- Search Bar -->
+    <div class="search-container" id="search-container">
+      <input type="text" id="search-input" placeholder="Search endpoints...">
+    </div>
 
-      <div id="cards-container" class="card-grid">
-        <p>Loading API endpoints...</p>
+    <!-- Analytics Dashboard Stats Header -->
+    <div class="stats-grid">
+      <div class="stat-card active" data-filter="all">
+        <span class="stat-num" id="stat-total">0</span>
+        <span class="stat-label">Total APIs</span>
+      </div>
+      <div class="stat-card" data-filter="get">
+        <span class="stat-num" id="stat-get">0</span>
+        <span class="stat-label">GET Endpoints</span>
+      </div>
+      <div class="stat-card" data-filter="post">
+        <span class="stat-num" id="stat-post">0</span>
+        <span class="stat-label">POST Endpoints</span>
+      </div>
+      <div class="stat-card" data-filter="categories">
+        <span class="stat-num" id="stat-cats">0</span>
+        <span class="stat-label">Categories</span>
+      </div>
+    </div>
+
+    <!-- Accordion Accorded API Categories -->
+    <main>
+      <div id="category-accordion" class="accordion-container">
+        <div class="loader-box">
+          <div class="spinner"></div>
+          <p>Loading Nitro Engine...</p>
+        </div>
       </div>
     </main>
 
-    <footer class="footer">
-      <p>&copy; Rest API Dashboard - All Rights Reserved</p>
+    <footer class="footer" id="footer-text">
+      41 APIs in 21 categories
     </footer>
+  </div>
+
+  <!-- Interactive Modal Screen -->
+  <div class="modal-overlay" id="api-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h2 id="modal-title" class="modal-title">API Name</h2>
+          <p id="modal-desc" class="modal-desc">API Description</p>
+        </div>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="modal-params-container">
+          <!-- Dynamic Params Inputs -->
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-cancel" id="btn-cancel">Cancel</button>
+          <button class="btn btn-submit" id="btn-submit">Submit</button>
+        </div>
+        <div id="response-box" class="response-box" style="display: none;">
+          <pre id="response-data"></pre>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="/js/app.js"></script>
