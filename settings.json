@@ -1,0 +1,17 @@
+{
+    "port": 3000,
+
+    "name": "REST API",
+
+    "description": "Professional REST API Framework",
+
+    "author": "Jubayer",
+
+    "version": "1.0.0",
+
+    "dashboard": true,
+
+    "apiPrefix": "",
+
+    "cors": true
+}
