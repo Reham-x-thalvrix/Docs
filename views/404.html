@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Page Not Found | JUBAYER API</title>
+  
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --nitro-red: #ff1a40;
+      --nitro-red-glow: rgba(255, 26, 64, 0.5);
+      --bg-black: #08070b;
+      --bg-card: #110e16;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-main: #ffffff;
+      --text-muted: #8b8598;
+      --accent-pink: #d946ef;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-black) !important;
+      color: var(--text-main) !important;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background Ambient Glow */
+    .nitro-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      max-width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--nitro-red-glow) 0%, rgba(0,0,0,0) 70%);
+      z-index: 0;
+      pointer-events: none;
+      animation: pulseGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+      100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+    }
+
+    .error-container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 30px 20px;
+      max-width: 480px;
+      width: 90%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+      animation: floatUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes floatUp {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .error-code {
+      font-size: 6rem;
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(135deg, #fff 20%, var(--nitro-red) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px var(--nitro-red-glow);
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      animation: glitch 3s infinite;
+    }
+
+    .icon-wrapper {
+      width: 70px;
+      height: 70px;
+      background: rgba(255, 26, 64, 0.1);
+      border: 1px solid rgba(255, 26, 64, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px auto;
+      color: var(--nitro-red);
+      font-size: 1.8rem;
+      box-shadow: 0 0 20px var(--nitro-red-glow);
+    }
+
+    .error-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .error-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #d946ef, var(--nitro-red));
+      color: white;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px var(--nitro-red-glow);
+      transition: all 0.3s ease;
+    }
+
+    .btn-home:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 25px var(--nitro-red);
+    }
+
+    .btn-home i {
+      transition: transform 0.3s ease;
+    }
+
+    .btn-home:hover i {
+      transform: translateX(-4px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nitro-glow"></div>
+
+  <div class="error-container">
+    <div class="icon-wrapper">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+    </div>
+    <h1 class="error-code">404</h1>
+    <h2 class="error-title">Page Not Found</h2>
+    <p class="error-desc">
+      The page or API route you are looking for was not found or has been deleted.
+    </p>
+    <a href="/" class="btn-home">
+      <i class="fa-solid fa-house"></i>
+      Back to Home
+    </a>
+  </div>
+
+</body>
+</html>
