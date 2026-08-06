@@ -3,7 +3,7 @@ const axios = require("axios");
 module.exports = {
   meta: {
     name: "Facebook Downloader",
-    version: "1.0.0",
+    version: "1.0.1",
     description: "Download Facebook public videos in HD/SD quality.",
     author: "Jubayer",
     method: "get",
@@ -18,27 +18,45 @@ module.exports = {
     }
 
     try {
-      const { data } = await axios.post(
-        "https://getmyfb.com/process",
-        new URLSearchParams({ id: fbUrl, locale: "en" }).toString(),
+      const response = await axios.post(
+        "https://snapsave.app/action.php",
+        new URLSearchParams({ url: fbUrl }).toString(),
         {
           headers: {
             "content-type": "application/x-www-form-urlencoded",
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+            "origin": "https://snapsave.app",
+            "referer": "https://snapsave.app/",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
           }
         }
       );
 
-      const hdMatch = data.match(/href="(https:\/\/[^"]+sd=1[^"]+)"/);
-      const sdMatch = data.match(/href="(https:\/\/[^"]+hd=1[^"]+)"/);
+      const htmlData = response.data;
+
+      const hdMatch = htmlData.match(/href=\\"(https:\/\/video[^\"]+)\\"[^>]*>HD<\/a>/i) || htmlData.match(/https:\/\/[^\s"]+sd_src_no_ratelimit[^\s"]+/i);
+      const sdMatch = htmlData.match(/href=\\"(https:\/\/video[^\"]+)\\"[^>]*>SD<\/a>/i) || htmlData.match(/https:\/\/[^\s"]+hd_src_no_ratelimit[^\s"]+/i);
+
+      const allUrls = htmlData.match(/https?:\/\/[^\s"',]+\.(mp4|m3u8)[^\s"',]*/gi) || [];
+
+      const hdUrl = hdMatch ? hdMatch[1] || hdMatch[0] : (allUrls[0] || null);
+      const sdUrl = sdMatch ? sdMatch[1] || sdMatch[0] : (allUrls[1] || allUrls[0] || null);
+
+      if (!hdUrl && !sdUrl) {
+        return res.status(404).json({
+          status: false,
+          error: "Could not extract video links. Make sure the video is public."
+        });
+      }
 
       res.json({
         status: true,
-        hd: hdMatch ? hdMatch[1].replace(/&amp;/g, "&") : null,
-        sd: sdMatch ? sdMatch[1].replace(/&amp;/g, "&") : null
+        hd: hdUrl ? hdUrl.replace(/\\/g, '') : null,
+        sd: sdUrl ? sdUrl.replace(/\\/g, '') : null
       });
+
     } catch (error) {
-      res.status(500).json({ status: false, error: "Failed to download Facebook video", message: error.message });
+      console.error('Error in FB DL API:', error);
+      res.status(500).json({ status: false, error: "Failed to process Facebook URL", message: error.message });
     }
   }
 };
