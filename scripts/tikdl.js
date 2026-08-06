@@ -11,10 +11,10 @@ module.exports = {
     category: "downloader"
   },
   onStart: async function({ req, res }) {
-    const tiktokUrl = req.query.url;
+    const tiktokUrl = req.query.url || req.query.prompt;
 
     if (!tiktokUrl) {
-      return res.status(400).json({ error: "TikTok URL is required (?url=YOUR_LINK)" });
+      return res.status(400).json({ error: "TikTok URL is required (?url=YOUR_LINK or ?prompt=YOUR_LINK)" });
     }
 
     const url = "https://ssstik.io/abc?url=dl";
