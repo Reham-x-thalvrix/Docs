@@ -33,9 +33,11 @@ module.exports = {
 
       const htmlData = response.data;
 
+      // Extract video download URLs using match regex
       const hdMatch = htmlData.match(/href=\\"(https:\/\/video[^\"]+)\\"[^>]*>HD<\/a>/i) || htmlData.match(/https:\/\/[^\s"]+sd_src_no_ratelimit[^\s"]+/i);
       const sdMatch = htmlData.match(/href=\\"(https:\/\/video[^\"]+)\\"[^>]*>SD<\/a>/i) || htmlData.match(/https:\/\/[^\s"]+hd_src_no_ratelimit[^\s"]+/i);
 
+      // Generic URL Fallback matcher
       const allUrls = htmlData.match(/https?:\/\/[^\s"',]+\.(mp4|m3u8)[^\s"',]*/gi) || [];
 
       const hdUrl = hdMatch ? hdMatch[1] || hdMatch[0] : (allUrls[0] || null);
