@@ -6,7 +6,7 @@ module.exports = {
     version: "1.0.0",
     description: "Download tiktok videos without watermark.",
     author: "Jubayer",
-    path: "/tikdl?url=",
+    path: "/tikdl",
     method: "get",
     category: "downloader"
   },
@@ -14,7 +14,7 @@ module.exports = {
     const tiktokUrl = req.query.url;
 
     if (!tiktokUrl) {
-      return res.status(400).json({ error: "TikTok URL is required" });
+      return res.status(400).json({ error: "TikTok URL is required (?url=YOUR_LINK)" });
     }
 
     const url = "https://ssstik.io/abc?url=dl";
@@ -47,6 +47,7 @@ module.exports = {
       const extractMatch = (regex, fallback = "Unknown") => html.match(regex)?.[1] ?? fallback;
 
       const result = {
+        status: true,
         author: extractMatch(/<h2>(.*?)<\/h2>/),
         profilePic: extractMatch(/<img class="result_author" src="(.*?)"/, "No profile picture found"),
         description: extractMatch(/<p class="maintext">(.*?)<\/p>/, "No description"),
@@ -59,7 +60,7 @@ module.exports = {
       res.json(result);
     } catch (error) {
       console.error('Error in TikTok DL API:', error);
-      res.status(500).json({ error: "Internal server error", message: error.message });
+      res.status(500).json({ status: false, error: "Internal server error", message: error.message });
     }
   }
 };
