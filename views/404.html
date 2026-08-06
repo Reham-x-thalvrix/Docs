@@ -1,176 +1,288 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 - Page Not Found | JUBAYER API</title>
-  
+
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --nitro-red: #ff1a40;
-      --nitro-red-glow: rgba(255, 26, 64, 0.5);
-      --bg-black: #08070b;
-      --bg-card: #110e16;
-      --border-color: rgba(255, 255, 255, 0.08);
-      --text-main: #ffffff;
-      --text-muted: #8b8598;
-      --accent-pink: #d946ef;
-    }
+  <script src="https://cdn.tailwindcss.com"></script>
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            dark: {
+              950: '#08070b',
+              800: '#17141f',
+              700: '#221e2e',
+            },
+            red: {
+              500: '#ff1a40',
+              600: '#e60026',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Poppins', 'sans-serif'],
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(-15px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            blink: {
+              '0%, 100%': { opacity: '1' },
+              '50%': { opacity: '0' },
+            },
+          },
+          animation: {
+            fadeIn: '0.8s ease forwards',
+            blink: 'blink 0.7s infinite',
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
       -webkit-user-select: none;
     }
 
     body {
-      background-color: var(--bg-black) !important;
-      color: var(--text-main) !important;
+      background: #08070b;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
       overflow: hidden;
-    }
-
-    /* Background Ambient Glow */
-    .nitro-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      max-width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, var(--nitro-red-glow) 0%, rgba(0,0,0,0) 70%);
-      z-index: 0;
-      pointer-events: none;
-      animation: pulseGlow 4s ease-in-out infinite alternate;
-    }
-
-    @keyframes pulseGlow {
-      0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
-      100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-    }
-
-    .error-container {
       position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 30px 20px;
-      max-width: 480px;
-      width: 90%;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 20px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.8);
-      animation: floatUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      padding: 20px;
     }
 
-    @keyframes floatUp {
-      from { opacity: 0; transform: translateY(30px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .error-code {
-      font-size: 6rem;
-      font-weight: 800;
-      line-height: 1;
-      background: linear-gradient(135deg, #fff 20%, var(--nitro-red) 80%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 30px var(--nitro-red-glow);
-      margin-bottom: 10px;
-      letter-spacing: 2px;
-      animation: glitch 3s infinite;
-    }
-
-    .icon-wrapper {
-      width: 70px;
-      height: 70px;
-      background: rgba(255, 26, 64, 0.1);
-      border: 1px solid rgba(255, 26, 64, 0.3);
+    body::before {
+      content: "";
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      background: rgba(255, 26, 64, .15);
+      filter: blur(140px);
       border-radius: 50%;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      animation: fadeIn .8s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .icon {
+      width: 80px;
+      height: 80px;
+      margin: auto auto 24px;
+      border-radius: 50%;
+      background: rgba(255, 26, 64, .08);
+      border: 1px solid rgba(255, 26, 64, .2);
       display: flex;
-      align-items: center;
       justify-content: center;
-      margin: 0 auto 20px auto;
-      color: var(--nitro-red);
-      font-size: 1.8rem;
-      box-shadow: 0 0 20px var(--nitro-red-glow);
-    }
-
-    .error-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 10px;
-    }
-
-    .error-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 25px;
-    }
-
-    .btn-home {
-      display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px 24px;
-      background: linear-gradient(135deg, #d946ef, var(--nitro-red));
-      color: white;
+      color: #ff1a40;
+      font-size: 32px;
+      box-shadow: 0 0 40px rgba(255, 26, 64, .2);
+    }
+
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 90px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    h1 span {
+      color: #ff1a40;
+    }
+
+    .typing {
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px;
       font-weight: 700;
-      font-size: 0.95rem;
+      height: 36px;
+      margin-bottom: 18px;
+    }
+
+    .typed-text {
+      color: #ff1a40;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 3px;
+      background: #ff1a40;
+      animation: blink .7s infinite;
+      margin-left: 2px;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    p {
+      color: #9ca3af;
+      max-width: 520px;
+      margin: auto;
+      line-height: 1.8;
+      margin-bottom: 35px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 24px;
+      border-radius: 14px;
       text-decoration: none;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px var(--nitro-red-glow);
-      transition: all 0.3s ease;
+      font-weight: 600;
+      transition: .25s;
     }
 
-    .btn-home:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 8px 25px var(--nitro-red);
+    .primary {
+      background: #ff1a40;
+      color: #fff;
     }
 
-    .btn-home i {
-      transition: transform 0.3s ease;
+    .primary:hover {
+      background: #e60026;
     }
 
-    .btn-home:hover i {
-      transform: translateX(-4px);
+    .secondary {
+      background: #17141f;
+      color: #d1d5db;
+      border: 1px solid #2d2838;
+    }
+
+    .secondary:hover {
+      background: #221e2e;
+    }
+
+    .footer {
+      margin-top: 55px;
+      color: #555;
+      font-size: 12px;
+      letter-spacing: 2px;
     }
   </style>
 </head>
+
 <body>
 
-  <div class="nitro-glow"></div>
+  <div class="container">
 
-  <div class="error-container">
-    <div class="icon-wrapper">
-      <i class="fa-solid fa-triangle-exclamation"></i>
+    <div class="icon">
+      <i class="fa-solid fa-code"></i>
     </div>
-    <h1 class="error-code">404</h1>
-    <h2 class="error-title">Page Not Found</h2>
-    <p class="error-desc">
-      The page or API route you are looking for was not found or has been deleted.
+
+    <h1>4<span>0</span>4</h1>
+
+    <div class="typing">
+      <span class="typed-text"></span><span class="cursor">&nbsp;</span>
+    </div>
+
+    <p>
+      The page or endpoint you are looking for doesn't exist, has been removed,
+      or is temporarily unavailable.
     </p>
-    <a href="/" class="btn-home">
-      <i class="fa-solid fa-house"></i>
-      Back to Home
-    </a>
+
+    <div class="buttons">
+      <a href="/" class="btn primary">
+        <i class="fa-solid fa-book"></i> Go back to Docs
+      </a>
+
+      <a href="javascript:history.back()" class="btn secondary">
+        <i class="fa-solid fa-arrow-left"></i> Previous Page
+      </a>
+    </div>
+
+    <div class="footer">
+      JUBAYER REST API SYSTEM
+    </div>
+
   </div>
+
+  <script>
+    const typedTextSpan = document.querySelector(".typed-text");
+
+    const textArray = [
+      "Page Not Found",
+      "Error 404"
+    ];
+
+    const typingDelay = 150;
+    const erasingDelay = 80;
+    const newTextDelay = 2000;
+
+    let textArrayIndex = 0;
+    let charIndex = 0;
+
+    function type() {
+      if (charIndex < textArray[textArrayIndex].length) {
+        typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, typingDelay);
+      } else {
+        setTimeout(erase, newTextDelay);
+      }
+    }
+
+    function erase() {
+      if (charIndex > 0) {
+        typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, erasingDelay);
+      } else {
+        textArrayIndex++;
+        if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+        setTimeout(type, typingDelay + 700);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(type, 800);
+    });
+  </script>
 
 </body>
 </html>
