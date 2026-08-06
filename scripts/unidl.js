@@ -7,14 +7,14 @@ module.exports = {
     description: "Universal Downloader for TikTok, Facebook, Instagram, etc.",
     author: "Jubayer",
     method: "get",
-    path: "/unidl?url=",
+    path: "/unidl",
     category: "downloader"
   },
   onStart: async function({ req, res }) {
-    const videoUrl = req.query.url;
+    const videoUrl = req.query.url || req.query.prompt;
 
     if (!videoUrl) {
-      return res.status(400).json({ error: "Video URL is required" });
+      return res.status(400).json({ error: "Video URL is required (?url=YOUR_LINK or ?prompt=YOUR_LINK)" });
     }
 
     const url = "https://universaldownloader.com/wp-json/aio-dl/video-data/";
